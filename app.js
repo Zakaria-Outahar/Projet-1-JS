@@ -1,7 +1,6 @@
 const form = document.querySelector('.form-quizz');
 let tableauResultats = [];
 const reponses = ['c','a','b','a','c'];
-const emojis = ['✔️','✨','👀','😭','👎'];
 const titreResultat = document.querySelector('.resultats h2');
 const noteResultat = document.querySelector('.note');
 const aideResultat = document.querySelector('.aide');
@@ -15,6 +14,12 @@ form.addEventListener('submit', (e) => {
         tableauResultats.push(document.querySelector(`input[name="q${i}"]:checked`).value);
     }
     verifFunc(tableauResultats);
+
+    questions.forEach(item => {
+        item.addEventListener('click', () => {
+            item.style.background = 'white';
+        })
+    })
 })
 
 function verifFunc(tabResultats){
@@ -28,6 +33,7 @@ function verifFunc(tabResultats){
     }
 
     afficherResultats(verifTableau);
+    couleursFonction(verifTableau);
 }
 
 function afficherResultats(tabCheck){
@@ -57,9 +63,23 @@ function afficherResultats(tabCheck){
         case 0 : titreResultat.innerText = "👎 Tu peux mieux faire ! 👎";
         aideResultat.innerText = 'Retentez une autre réponse dans la case rouge, puis re-validez !';
         break;
-        
+
         default:
             "Erreur, cas innatendu";
+    }
+}
+
+function couleursFonction(tableau){
+    for(let i=0; i < tableau.length; i++){
+        if(tableau[i]){
+            questions[i].style.background = 'lightgreen';
+        } else{
+            questions[i].style.background = '#ffb8b8';
+            questions[i].classList.add('echec');
+            setTimeout(() => {
+                questions[i].classList.remove('echec');
+            }, 500)
+        }
     }
 }
 
