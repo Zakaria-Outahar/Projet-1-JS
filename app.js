@@ -3,7 +3,7 @@ let tableauResultats = [];
 const reponses = ['c','a','b','a','c'];
 const emojis = ['✔️','✨','👀','😭','👎'];
 const titreResultat = document.querySelector('.resultats h2');
-const texteResultat = document.querySelector('.note');
+const noteResultat = document.querySelector('.note');
 const aideResultat = document.querySelector('.aide');
 const questions = document.querySelectorAll('.question-block');
 let verifTableau = [];
@@ -26,7 +26,40 @@ function verifFunc(tabResultats){
             verifTableau.push(false);
         }
     }
-    console.log(verifTableau);
 
+    afficherResultats(verifTableau);
+}
+
+function afficherResultats(tabCheck){
+    const nbDeBonnesReponses = tabCheck.filter(el => el === true).length; 
+    noteResultat.innerText = `Note : ${nbDeBonnesReponses}/5`;
+    switch(nbDeBonnesReponses){
+        case 5 : titreResultat.innerText = "✔️ Bravo, c'est un sans faute ! ✔️";
+        aideResultat.innerText = 'Retentez une autre réponse dans la case rouge, puis re-validez !';
+        break;
+
+        case 4 : titreResultat.innerText = "✨ Vous y êtes presque ! ✨";
+        aideResultat.innerText = 'Retentez une autre réponse dans la case rouge, puis re-validez !';
+        break;
+
+        case 3 : titreResultat.innerText = "✨ Encore un effort ... 👀";
+        aideResultat.innerText = 'Retentez une autre réponse dans la case rouge, puis re-validez !';
+        break;
+
+        case 2 : titreResultat.innerText = "👀 Il reste quelques erreurs. 😭";
+        aideResultat.innerText = 'Retentez une autre réponse dans la case rouge, puis re-validez !';
+        break;
+
+        case 1 : titreResultat.innerText = "😭 Tu peux mieux faire ! 😭";
+        aideResultat.innerText = 'Retentez une autre réponse dans la case rouge, puis re-validez !';
+        break;
+
+        case 0 : titreResultat.innerText = "👎 Tu peux mieux faire ! 👎";
+        aideResultat.innerText = 'Retentez une autre réponse dans la case rouge, puis re-validez !';
+        break;
+        
+        default:
+            "Erreur, cas innatendu";
+    }
 }
 
